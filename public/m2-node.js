@@ -3,7 +3,7 @@
 var trym2 = {
     lessonNr: 0,
     tutorialNr: 0,
-    tutorials: [], 
+    tutorials: [],
     firstLoadFlag: true, // true until we show tutorial for the first time. Needed because we need to load lesson 0
     MAXFILESIZE: 500000 // max size in bytes for file uploads
 };
@@ -17,7 +17,7 @@ var shellObject = function(shellArea, historyArea) {
     var history = historyArea;
     var cmdHistory = []; // History of M2 commands for shell-like arrow navigation
     cmdHistory.index = 0;
-    var outIndex = 0; // End of real M2 output in M2Out textarea, without user's typing.   
+    var outIndex = 0; // End of real M2 output in M2Out textarea, without user's typing.
     var dataSentIndex = 0;
 
     function appendCommandToCmdHistory(line) {
@@ -35,7 +35,7 @@ var shellObject = function(shellArea, historyArea) {
             }
         }
     });
-    
+
     // On pressing return send last part shell to server for evaluation
     function hasNewInput(totalLength) {
         return totalLength > outIndex;
@@ -95,7 +95,7 @@ var shellObject = function(shellArea, historyArea) {
     });
 
     function containsM2Preamble(msg) {
-        return /^Macaulay2, version \d\.\d/.test(msg);
+        return /^Singular, version \d\.\d/.test(msg);
     }
 
     function hasSentButUnprocessedInput(userInputNotProcessedYetAsArray) {
@@ -165,7 +165,7 @@ var shellObject = function(shellArea, historyArea) {
             // we need to move cursor to end of input
             var pos = shell[0].selectionStart;
             if (pos < outIndex) {
-                //console.log(pos + " Moving to end."); 
+                //console.log(pos + " Moving to end.");
                 trym2.setCaretPosition(shell, shell.val().length);
             }
         } else if ((e.keyCode == arrowUp) || (e.keyCode == arrowDown)) {
@@ -208,9 +208,9 @@ var shellObject = function(shellArea, historyArea) {
 // this global variable changes the content on the left as the users
 // naviges between home, tutorial, and input
 // tabs are hard coded as home, tutorial, and input
-// the controller assures that always exactly one tab from the tabs list is active. 
+// the controller assures that always exactly one tab from the tabs list is active.
 // usage: trym2.navBar.activate("home")
-trym2.navBar = function () {  
+trym2.navBar = function () {
     this.activate = function( s ) { // string with name of tab
         console.log("activate tab: " + s);
         var tab = this.tabs[s];
@@ -222,23 +222,23 @@ trym2.navBar = function () {
             if ( otherTab != tab) {
                 for (i in otherTab.elements) {
                     console.log( otherTab.elements[i] );
-                    $(otherTab.elements[i]).hide(); 
+                    $(otherTab.elements[i]).hide();
                 }
             }
-        } 
+        }
         for (i in tab.elements) { // show this tab's elements
             $(tab.elements[i]).show();
         }
     };
-   
+
     var Tab = function(elements, btn, showFunction) {
         this.elements = elements;
-        this.btn = btn, 
+        this.btn = btn,
         this.show = showFunction;
     };
 
-    var homeTab = new Tab( ["#home"], 
-                              "#homeBtn", 
+    var homeTab = new Tab( ["#home"],
+                              "#homeBtn",
                               function() {
                                     console.log( "home.show()" );
                               }
@@ -247,7 +247,7 @@ trym2.navBar = function () {
     var tutorialTab = new Tab(  ["#lesson", "#previousBtn", "#nextBtn", "#pageIndex"],
                                    "#tutorialBtn",
                                    function() {
-                                        console.log("tutorial.show()"); 
+                                        console.log("tutorial.show()");
                                         var maxLesson = trym2.tutorials[trym2.tutorialNr].lessons.length;
                                         $("#pageIndex").button("option", "label", (trym2.lessonNr + 1) + "/" +
                                               maxLesson).show().unbind().css('cursor', 'default');
@@ -261,7 +261,7 @@ trym2.navBar = function () {
                             }
                         );
     this.tabs =  {
-       "home" : homeTab, 
+       "home" : homeTab,
        "tutorial": tutorialTab,
        "input": inputTab
    };
@@ -518,9 +518,9 @@ trym2.getSelected = function(inputField) {
         } else {
             str = $(inputField).val() + "\n";
             $(inputField).val(str);
-            end = str.length - 1; // position of last \n 
+            end = str.length - 1; // position of last \n
         }
-        // move cursor to beginning of line below 
+        // move cursor to beginning of line below
         this.setCaretPosition($(inputField), end + 1);
     }
     return str.slice(start, end);
@@ -551,7 +551,7 @@ trym2.postMessage = function(url, msg) {
         var xhr = new XMLHttpRequest(); // Create a new XHR
         //console.log( "URL: " + url);
         xhr.open("POST", url); // to POST to url.
-        xhr.setRequestHeader("Content-Type", // Specify plain UTF-8 text 
+        xhr.setRequestHeader("Content-Type", // Specify plain UTF-8 text
         "text/plain;charset=UTF-8");
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {
@@ -631,7 +631,7 @@ trym2.saveInteractions = function() {
         output: $("#M2Out").val()
     };
     xhr.open("POST", '/save'); // to POST to url.
-    xhr.setRequestHeader("Content-Type", // Specify plain UTF-8 text 
+    xhr.setRequestHeader("Content-Type", // Specify plain UTF-8 text
     "application/json;charset=UTF-8");
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
@@ -653,7 +653,7 @@ trym2.uploadTutorial = function() {
     console.log("number of files in upload tutorial: " + files.length);
     file = files[0];
     var fileName = file.name;
-    console.log("Process file for tutorial upload:" + fileName);    
+    console.log("Process file for tutorial upload:" + fileName);
 
     var reader = new FileReader();
     reader.readAsText(file);
@@ -667,7 +667,7 @@ trym2.uploadTutorial = function() {
         var newTutorial = trym2.tutorials[lastIndex];
         var title = newTutorial.title; //this is an <h3>
         console.log("new title: " + title.html());
-    
+
         var lessons = newTutorial.lessons;
         trym2.appendTutorialToAccordion(title, lessons, lastIndex);
         trym2.insertDeleteButtonAtLastTutorial();
@@ -846,32 +846,14 @@ $(document).ready(function() {
 
 
     var M2InDefaultText = "" +
-        "-- Welcome to Macaulay2 !\n" +
-        "-- In this window you may type in Macaulay2 commands \n" +
-        "-- and have them evaluated by the server.\n" +
-        "\n" +
-        "-- Evaluate a line or selection by typing Shift+Enter \n" +
-        "-- or by clicking on Evaluate.\n" +
-        "\n" +
-        "-- To open the Macaulay2 documentation for a \n" +
-        "-- topic in another browser tab or window do e.g.:\n" +
-        "\n" +
-        "viewHelp \"determinant\"\n" +
-        "\n" +
-        "-- If nothing shows up, you may need to set your browser \n" +
-        "-- to allow pop up windows.\n" +
-        "\n" +
-        "-- Here are some sample commands:\n" +
-        "  R = ZZ/101[a,b,c,d]\n" +
-        "  I = ideal(a^2-b*c, a^3-b^3, a^4-b*d^3, a^5-c^2*d^3)\n" +
-        "  J = ideal groebnerBasis I;\n" +
-        "  netList J_*\n" +
-        "\n" +
-        "  -- Some examples of rings\n" +
-        "  A = ZZ/32003[a..g]\n" +
-        "  B = QQ[x_1..x_6]\n" +
-        "  C = ZZ/101[vars(0..12)]\n" +
-        "---------------\n";
+        "/*****\n" +
+        " * Welcome to Singular!\n" +
+        " * In this window you may type in Singular commands \n" +
+        " * and have them evaluated by the server.\n" +
+        " * \n" +
+        " * To Evaluate a line or selection press Shift + Enter \n" +
+        " * or click on 'Evaluate'.\n" +
+        " *****/\n";
 
     $('#M2In').val(M2InDefaultText);
     $("#sendBtn").click(trym2.sendCallback('#M2In'));
@@ -892,7 +874,7 @@ $(document).ready(function() {
     });
 
     $("#homeBtn").click( function() {
-        trym2.navBar.activate("home"); 
+        trym2.navBar.activate("home");
     });
 
     $(document).on("click", ".submenuItem", trym2.showLesson);
@@ -908,5 +890,5 @@ $(document).ready(function() {
 
     trym2.importTutorials();
 
-    trym2.navBar.activate("home"); 
+    trym2.navBar.activate("home");
 });

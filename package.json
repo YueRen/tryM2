@@ -1,5 +1,5 @@
-{    "name": "m2server",
+{    "name": "singularserver",
     "version": "1.0.0",
-    "description": "TryM2, allows to use Macaulay2 in a browser",    
+    "description": "TrySingular, allows to use Singular in a browser, forked from tryM2",    
     "dependencies": { "cookies": "0.3.6", "connect": "2.7.3", "formidable": ">=1.0.13" }
 }

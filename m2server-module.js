@@ -1,25 +1,25 @@
 // March 2014, Franziska Hinkelmann, Mike Stillman, and Lars Kastner
 //
 // This file defines a Node.js server for serving 'trySingular'.
-//   run 
-//       node m2server.js 
+//   run
+//       node m2server.js
 //   or
 //       node m2server-schroot.js
-// in a terminal in this directory. Alternatively you can use the Makefile 
+// in a terminal in this directory. Alternatively you can use the Makefile
 // provided alongside this repository.
 //
 //
 // Local version:
 //
-// In a browser, use: 
+// In a browser, use:
 //      http://localhost:8002/
 // Requirements:
-//   Node.js libraries: cookies, connect, fs, http.  
+//   Node.js libraries: cookies, connect, fs, http.
 // Install via:
 //   npm install
 // Required on path: Singular
 // We are using our own open script to make Graphs.m2 work (generate jpegs for
-// users), please include the current directory in your path: 
+// users), please include the current directory in your path:
 // export PATH=.:$PATH
 //
 //
@@ -117,7 +117,7 @@ var M2Server = function (overrideOptions) {
         }
     };
 
-    // deciding that a user is obsolete: 
+    // deciding that a user is obsolete:
     // set clients[clientID].timestamp (set by M2 output or the client's input)
     // in set time intervals, iterate over clients and if timestamp is too old
     // or using too high resources, delete the client
@@ -231,7 +231,7 @@ var M2Server = function (overrideOptions) {
         if (options.SCHROOT) {
             m2 = spawnSchroot(clientID, 'Singular');
         } else {
-            m2 = spawn('script', ['/dev/null', 'Singular']);
+            m2 = spawn('script', ['-c', 'Singular --no-shell --cntrlc=q']);
             //m2 = spawn('Singular', ['-t']);
         }
         logClient(clientID, "Spawning new Singular process...");
@@ -307,7 +307,7 @@ var M2Server = function (overrideOptions) {
         }
         response.write(
             '<head><link rel="stylesheet" href="m2.css" type="text/css" media="screen"></head>');
-        response.write('<h1>Macaulay2 User Statistics</h1>');
+        response.write('<h1>Singular User Statistics</h1>');
         response.write("There are currently " + currentUsers +
             " users using M2.<br>");
         response.write("In total, there were " + totalUsers +
@@ -722,12 +722,12 @@ var M2Server = function (overrideOptions) {
                 var json = JSON.parse(body);
                 console.log(json.input);
 
-                fs.writeFile(path + "Macaulay2-input", json.input);
-                fs.writeFile(path + "Macaulay2-output", json.output);
+                fs.writeFile(path + "session.sing", json.input);
+                fs.writeFile(path + "session.out", json.output);
                 response.writeHead(200, {
                     "Content-Type": "text/html"
                 });
-                var msg = {input: path + "Macaulay2-input", output: path + "Macaulay2-output"};
+                var msg = {input: path + "session.sing", output: path + "session.out"};
                 response.write(JSON.stringify(msg));
                 response.end();
             });
@@ -787,7 +787,7 @@ var M2Server = function (overrideOptions) {
             setInterval(pruneClients, options.PRUNECLIENTINTERVAL);
         }
 
-        // Send a comment to the clients every 20 seconds so they don't 
+        // Send a comment to the clients every 20 seconds so they don't
         // close the connection and then reconnect
         setInterval(keepEventStreamsAlive, 20000);
 

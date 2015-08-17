@@ -16,12 +16,19 @@
           ga('send', 'pageview');
 
         </script>
+
     <title>
       Singular
     </title>
     
+    <!-- <script type="text/javascript" -->
+    <!-- 	    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> -->
+    <!-- </script> -->
+
   </head>
   <body>
+<!-- When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are -->
+<!-- $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$ -->
   <!--[if IE]>
      <p> Internet Explorer is currently not supported. Please use a different browser.  </p>
   <![endif]-->
@@ -45,11 +52,13 @@
       </div>
       <div class="right halfWidth rel">
           <div class ="left padded">
-            <button type="button" id="resetBtn">Reset</button><button type="button" id="interruptBtn">Interrupt</button>
+            <button type="button" id="resetBtn">Reset</button>
+	    <!-- <button type="button" id="interruptBtn">Interrupt</button> -->
           </div>
           <div class="right padded">
-              <button type="button" id="saveBtn">Save</button><button type="button" id="uploadBtn">Upload File</button>
-          </div>  
+              <button type="button" id="saveBtn">Save</button>
+	      <!-- <button type="button" id="uploadBtn">Upload File</button> -->
+          </div>
       </div>
       <div class="clear"></div>
     </div>    
@@ -59,12 +68,27 @@
       <div id="home" class="terminal left">
 
         <img class="image-text-wrap" src="septic.jpg"/> 
-            <h3>Welcome to Singular! </h3>
+            <h3>Welcome to Singular online!</h3>
 
-        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-        </p>
+	    <p>This is the official web-interface of Singular.</p> 
 
-        <p> At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+	    <p>To learn more about Singular (features and manual, source code and third party software), please consult the <a href="http://www.singular.uni-kl.de/index.php" target="_blank">official website</a>.</p> 
+
+	    <p>To learn how to use Singular and in particular this web interface, please check the tutorials below.</p>
+
+	    <p>For questions, visit our <a href="http://www.singular.uni-kl.de/forum/" target="_blank">forum</a>.</p>
+        <!-- <p>Singular is a computer algebra system for polynomial computations, with special emphasis on commutative and non-commutative algebra, algebraic geometry, and singularity theory. It is free and open-source under the GNU General Public Licence. -->
+	<!-- </p> -->
+
+        <!-- <p>Its main computational objects are ideals, modules and matrices over a large number of baserings. These include -->
+
+	<!-- <ul> -->
+	<!--   <li> polynomial rings over various ground fields and some rings (including the integers),</li> -->
+	<!--   <li> localizations of the above,</li> -->
+	<!--   <li> a general class of non-commutative algebras (including the exterior algebra and the Weyl algebra),</li> -->
+	<!--   <li> quotient rings of the above,</li> -->
+	<!--   <li> tensor products of the above.</li> -->
+	<!-- </ul> -->
       </div>
     
       <div id="lesson" class="terminal left "></div>
@@ -79,7 +103,7 @@
     </div>
       
     <div id="about" class="smallFont">
-      2014. Franziska Hinkelmann, Lars Kastner, Mike Stillman, Yue Ren <a href='mailto:trym2@googlegroups.com'>Email us</a> with any questions or suggestions. Funding provided by At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      2014. Franziska Hinkelmann, Lars Kastner, Mike Stillman, Yue Ren <a href='mailto:singular@uni-kl.de'>Email us</a> with any questions or suggestions.
     </div>
     
     <div style='height: 0px;width: 0px; overflow:hidden;'><input id="upfile" type="file" value="upload"/></div>
